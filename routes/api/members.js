@@ -28,6 +28,8 @@ router.post('/', (req, res) => {
     id:uuid.v4(),
     ...res.body
   }
+
+  // this.members.push
 })
 
 module.exports = router
