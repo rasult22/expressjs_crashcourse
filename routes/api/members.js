@@ -63,10 +63,10 @@ router.put('/:id', (req, res) => {
   } else {
     res.status(400).json({ msg: `No member with the id of ${req.params.id}` })
   }
-
-  // members.push(newMember)
-  // res.json(members)
 })
+
+
+// Delete Member
 
 
 
