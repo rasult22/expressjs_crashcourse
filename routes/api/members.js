@@ -24,12 +24,50 @@ router.get('/:id', (req,res) => {
 // Create Members
 
 router.post('/', (req, res) => {
+  console.log(req.body)
   const newMember = {
     id:uuid.v4(),
-    ...res.body
+    ...req.body
   }
 
-  // this.members.push
+  if (!newMember.name) {
+    return res.status(400).json({
+      msg: 'Please include a name'
+    })
+  } 
+
+  members.push(newMember)
+  res.json(members)
 })
+
+// Update members
+
+router.put('/:id', (req, res) => {
+  // console.log(req.body)
+  const member =  members.find(member => member.id === parseInt(req.params.id))
+
+
+  if (member) {
+    const updMember = req.body
+    members.forEach(item => {
+      // console.log(updMember)
+      if(item.id === parseInt(member.id)){
+        Object.keys(item).forEach(key => {
+          item[key] = updMember[key]
+        })
+        item.id = member.id
+        console.log(item)
+        res.json({msg: 'Member updated', member: item})
+      }
+    })
+  } else {
+    res.status(400).json({ msg: `No member with the id of ${req.params.id}` })
+  }
+
+  // members.push(newMember)
+  // res.json(members)
+})
+
+
 
 module.exports = router
